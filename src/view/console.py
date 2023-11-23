@@ -11,6 +11,9 @@ from model.token import Token
 
 class ConsoleView(Game):
     def __init__(self):
+        """
+        Initializes a new ConsoleView instance.
+        """
         players = self.ask_for_players()
         custom_game = input("🤔 Do you want to load a default game? [Y/n] ")
 
@@ -44,6 +47,12 @@ class ConsoleView(Game):
         print(f"🏆 {self.game.winner.name} is the winner.")
 
     def ask_for_players(self) -> list[Token]:
+        """
+        Asks the user for the number of players and their names.
+
+        Returns:
+            list[Token]: A list of Token instances representing players.
+        """
         n_players = int(input("Players count: "))
         players = []
         for i in range(n_players):
@@ -52,6 +61,12 @@ class ConsoleView(Game):
         return players
 
     def ask_for_board(self) -> Board:
+        """
+        Asks the user for the board size, number of ladders, and number of snakes.
+
+        Returns:
+            Board: The created Board instance.
+        """
         b_size = int(input("Board size: "))
         board = Board(b_size)
 
@@ -76,6 +91,12 @@ class ConsoleView(Game):
         return board
 
     def load_default_board(self) -> Board:
+        """
+        Loads the default board configuration from JSON files.
+
+        Returns:
+            Board: The created Board instance.
+        """
         module_path = os.path.dirname(__file__)
         default_dir = os.path.join(module_path, "default")
         file_names = {

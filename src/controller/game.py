@@ -14,6 +14,16 @@ class Game(object):
         ladders: list[Ladder] = [],
         dice: Dice = Dice(6),
     ):
+        """
+        Initializes a new Game instance.
+
+        Args:
+            players (list[Token]): List of Token instances representing players.
+            board (Board): The game board.
+            snakes (list[Snake], optional): List of Snake instances on the board.
+            ladders (list[Ladder], optional): List of Ladder instances on the board.
+            dice (Dice, optional): The dice used in the game. Defaults to a six-sided dice.
+        """
         self.players: list(Token) = players
         self.board: Board = board
         self.dice: Dice = dice
@@ -30,9 +40,21 @@ class Game(object):
         self.event: str = "normal"
 
     def start(self):
+        """
+        Starts the game by setting the initial next player.
+        """
         self.next_player = self.players[0]
 
     def __move__(self, steps: int):
+        """
+        Moves the current player on the board based on the number of steps rolled.
+
+        Args:
+            steps (int): The number of steps to move.
+
+        Raises:
+            ValueError: If there is already a winner.
+        """
         if self.winner:
             raise ValueError(
                 f"There is already a winner, so it is not possible to move {current_player.name}"
@@ -44,6 +66,9 @@ class Game(object):
             self.winner = self.next_player
 
     def __next_turn__(self):
+        """
+        Advances to the next turn, updating the current and next player.
+        """
         current_player_idx = self.players.index(self.next_player)
 
         next_player_idx = current_player_idx + 1
@@ -54,6 +79,12 @@ class Game(object):
         self.next_player = self.players[next_player_idx]
 
     def play(self):
+        """
+        Plays the game in a loop until a winner is determined.
+
+        Yields:
+            None: Yields control to the caller after each turn.
+        """
         while not self.winner:
             steps = self.dice.roll()
             self.__move__(steps)

@@ -2,6 +2,9 @@ import subprocess
 
 
 def run_tests():
+    """
+    Run unit tests using either unittest or pytest based on user input.
+    """
     test_framework = input("Choose test engine (unittest/pytest): ").lower()
 
     if test_framework == "unittest":
