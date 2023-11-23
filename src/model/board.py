@@ -1,5 +1,5 @@
-from model.ladder import Ladder
-from model.snake import Snake
+from .ladder import Ladder
+from .snake import Snake
 
 
 class Board(object):
@@ -25,26 +25,5 @@ class Board(object):
         self.board[ladder.bot] = ladder.id
         self.ladders.append(ladder)
 
-    def get_next_pos(self, player_pos: int, steps: int) -> int:
-        next_pos = player_pos + steps
-        event = "normal"
-        if next_pos >= len(self.board):
-            return player_pos, "stay"
-
-        try:
-            sl_id = self.board[next_pos]
-            if sl_id < 0:  # Snake
-                idx = self.board.index(sl_id)
-                if next_pos > idx:
-                    event = "snake"
-                return idx, event
-
-            if sl_id > 0:  # Ladder
-                idx = self.board.index(sl_id, next_pos + 1)
-                if next_pos < idx:
-                    event = "ladder"
-                return idx, event
-        except ValueError:
-            return next_pos, event
-
-        return next_pos, event
+    def __len__(self) -> int:
+        return len(self.board)

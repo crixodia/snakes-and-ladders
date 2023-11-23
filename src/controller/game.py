@@ -38,13 +38,10 @@ class Game(object):
                 f"There is already a winner, so it is not possible to move {current_player.name}"
             )
 
-        next_player_pos, e = self.board.get_next_pos(self.next_player.pos, steps)
-        self.event = e
+        self.event = self.next_player.next_position(self.board, steps)
 
-        if next_player_pos == self.board.size:
+        if self.event == "win":
             self.winner = self.next_player
-
-        self.next_player.pos = next_player_pos
 
     def __next_turn__(self):
         current_player_idx = self.players.index(self.next_player)
