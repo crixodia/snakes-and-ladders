@@ -27,6 +27,7 @@ class Game(object):
         self.next_player: Token = None
         self.current_player: Token = None
         self.winner: Token = None
+        self.event: str = "normal"
 
     def start(self):
         self.next_player = self.players[0]
@@ -37,7 +38,8 @@ class Game(object):
                 f"There is already a winner, so it is not possible to move {current_player.name}"
             )
 
-        next_player_pos = self.board.get_next_pos(self.next_player.pos, steps)
+        next_player_pos, e = self.board.get_next_pos(self.next_player.pos, steps)
+        self.event = e
 
         if next_player_pos == self.board.size:
             self.winner = self.next_player
@@ -52,7 +54,6 @@ class Game(object):
             next_player_idx = 0
 
         self.current_player = self.next_player
-
         self.next_player = self.players[next_player_idx]
 
     def play(self):
