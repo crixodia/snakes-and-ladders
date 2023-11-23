@@ -18,9 +18,9 @@ class ConsoleView(Game):
         custom_game = input("🤔 Do you want to load a default game? [Y/n] ")
 
         board = (
-            self.load_default_board()
-            if custom_game in ["y", "Y"]
-            else self.ask_for_board()
+            self.ask_for_board()
+            if custom_game in ["n", "N"]
+            else self.load_default_board()
         )
 
         self.game = Game(players, board)
@@ -87,7 +87,6 @@ class ConsoleView(Game):
             s = Snake(head, tail, -i)
             board.add_snake(s)
 
-        print("Ladders and snakes will be generated randomly")
         return board
 
     def load_default_board(self) -> Board:
